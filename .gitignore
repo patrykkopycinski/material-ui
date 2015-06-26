@@ -1,8 +1,9 @@
 node_modules
 npm-debug.log
 build
+.idea
 
 # Exclude compiled files
-lib
+#lib
 icon-builder/js
 icon-builder/jsx
