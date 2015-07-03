@@ -19,14 +19,24 @@ let MenuItem = React.createClass({
     disabled: React.PropTypes.bool,
     innerDivStyle: React.PropTypes.object,
     insetChildren: React.PropTypes.bool,
+    keyboardFocused: React.PropTypes.bool,
     leftIcon: React.PropTypes.element,
     rightIcon: React.PropTypes.element,
-    secondaryText: React.PropTypes.node
+    secondaryText: React.PropTypes.node,
+    value: React.PropTypes.string
   },
 
   getDefaultProps() {
     return {
     };
+  },
+
+  componentDidMount() {
+    if (this.props.keyboardFocused) this.setKeyboardFocus();
+  },
+
+  componentDidUpdate: function(prevProps, prevState) {
+    if (this.props.keyboardFocused) this.setKeyboardFocus();
   },
 
   render() {
@@ -41,6 +51,7 @@ let MenuItem = React.createClass({
       rightIcon,
       secondaryText,
       style,
+      value,
       ...other
     } = this.props;
 
@@ -114,12 +125,17 @@ let MenuItem = React.createClass({
         innerDivStyle={mergedInnerDivStyles}
         insetChildren={insetChildren}
         leftIcon={styledLeftIcon}
+        ref="listItem"
         rightIcon={rightIconElement}
         style={mergedRootStyles}>
         {this.props.children}
         {secondaryTextElement}
       </ListItem>
     );
+  },
+
+  setKeyboardFocus() {
+    this.refs.listItem.setKeyboardFocus();
   }
 });
 
